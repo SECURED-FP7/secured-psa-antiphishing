@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PSA Manifest instance - version 1.1 - 3 Sep 2014 -->
+<PSAManifest xmlns="https://www.secured-fp7.eu/ref/PSA_manifest/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.secured-fp7.eu/ref/PSA_manifest/ file:PSA_manifest_v1.1.xsd">
+    <general_info>
+        <PSA_ID>antiPhishingPSA</PSA_ID>
+        <name>Antiphishing PSA</name>
+        <description>The Antiphishing PSA acts like a transparent proxy avoiding the access to phishing sites. This proxy is managed by Squid, checking the traffic and comparing it to a public blacklist containing many already known phishing urls. If the traffic destination does not belong to any site in the blacklist it allows the traffic normally.</description>
+        <web_site>https://www.secured-fp7.eu/</web_site>
+        <version>1.00</version>
+        <vendor>UPC</vendor>
+        <author>Alicia Vila</author>
+        <EULA></EULA>
+        <licence>GPLv2</licence>
+    </general_info>
+    <functionality>
+        <capability>
+            <access_control>
+                <traffic_filter>
+                    <application_filter>
+                        <name>Web HTTPS proxy</name>
+                        <implementedBy>reencryption</implementedBy>
+                        <type>forward web proxy</type>
+                    </application_filter>
+                </traffic_filter>
+           </access_control>
+            <HSPL_capability>
+                <capability_list>antiPhishing</capability_list>
+            </HSPL_capability>
+        </capability>
+        <M2L_translation_info>
+            <security_control>
+                <id>antiPhishing</id>
+                <name>HTTP/S transparent proxy</name>
+                <description>This plugin converts MSPL to antiphis configuration</description>
+                <plugin>
+                    <id>antiphishing_M2L_plugin</id>
+                    <name>antiphishing M2LPlugin</name>
+                    <URL>http://195.235.93.146:8080/v1/PSA/M2Lplugins/PSA-antiphishing</URL>
+                    <command>none</command>
+                </plugin>
+                <configuration_file>antiphishing_M2L_plugin.jar</configuration_file>
+            </security_control>
+        </M2L_translation_info>
+        <performance>
+            <network_throughput unit="Mbit/s">
+                <value>10</value>
+            </network_throughput>
+            <simultaneous_connections unit="conn/s">
+                <value>10</value>
+            </simultaneous_connections>
+            <max_numer_of_operations_rules>2</max_numer_of_operations_rules>
+            <max_numer_of_users>10</max_numer_of_users>
+        </performance>
+    </functionality>
+    <execution_model>
+        <infrastructure>
+            <hw_requirement>
+                <cpu_unit>1</cpu_unit>
+                <cpu_architecture>x86_64</cpu_architecture>
+                <cpu_family>Intel</cpu_family>
+                <RAM_size unit="GB">
+                    <value>1</value>
+                </RAM_size>
+                <disk_size unit="GB">
+                    <value>2</value>
+                </disk_size>
+                <bandwidth unit="Mbit/s">
+                    <value>10</value>
+                </bandwidth>
+                <max_delay unit="ms">
+                    <value>2000</value>
+                </max_delay>
+            </hw_requirement>
+            <sw_requirement>
+                <OS_type>Debian</OS_type>
+                <OS_version>7.0</OS_version>
+                <OS_architecture>x86_64</OS_architecture>
+            </sw_requirement>
+        </infrastructure>
+        <security_availability/>
+        <mobility>
+            <migration_support>cold migration</migration_support>
+            <type>stateless</type>
+        </mobility>
+        <PSC_dependency/>
+        <additional_requirement/>
+    </execution_model>
+    <configuration>
+        <PSA_format>qcow2</PSA_format>
+        <security_control_configuration>
+            <security_control_ID>antiphishing_M2L_plugin</security_control_ID>
+            <configuration_file>antiphishing_M2L_plugin.jar</configuration_file>
+            <executable>java</executable>
+        </security_control_configuration>
+        <    <network_card_no>2</network_card_no>
+        <network_card_configuration>
+            <card_ID>eth0</card_ID>
+            <MAC_address>00:00:00:00:00:00</MAC_address>
+            <IP_address>1.1.1.1</IP_address>
+            <netmask>255.255.255.0</netmask>
+        </network_card_configuration>
+        <network_card_configuration>
+            <card_ID>eth1</card_ID>
+            <MAC_address>00:00:00:00:00:01</MAC_address>
+            <IP_address>192.168.1.1</IP_address>
+            <netmask>255.255.255.0</netmask>
+        </network_card_configuration>
+        <network_configuration>
+            <gateway_IP_address>1.1.1.250</gateway_IP_address>
+            <DNS_IP_address>8.8.8.8</DNS_IP_address>
+        </network_configuration>
+        <kernel_configuration/>
+    </configuration>
+    <monitoring>
+        <input_bandwidth unit="Kbit/s">
+            <value>100</value>
+        </input_bandwidth>
+        <output_bandwidth unit="Kbit/s">
+            <value>10</value>
+        </output_bandwidth>
+        <delay unit="ms">
+            <value>10</value>
+        </delay>
+    </monitoring>
+</PSAManifest>

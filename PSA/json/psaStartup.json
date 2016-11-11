@@ -1,0 +1,9 @@
+{
+	
+	"name": "psa_startup_file",
+	"user_token": "token1",
+	"psaID": "12345",
+	"pscAddr": "http://127.0.0.1:4321",
+	"confURI": "12345"
+
+}

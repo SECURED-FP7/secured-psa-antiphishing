@@ -1,0 +1,25 @@
+{
+	"name": "user_profile_type",
+	"user_token": "",
+	"profile_type": "AD",			
+
+	"PSASet": [
+		
+		{
+			"id": "antiPhishingPSA",
+			"security_controls": [
+				
+				{
+					"imgName": "antiPhishingPSA.img",
+					"conf_id":"antiphishing_user6"
+				}
+				
+			] 
+			
+		}
+	], 
+	
+	"ingress_flow": ["antiPhishingPSA"],
+	"egress_flow": ["antiPhishingPSA"]
+
+}

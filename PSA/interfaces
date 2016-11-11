@@ -1,0 +1,32 @@
+# PSA interface file
+# Place this in /etc/network in your PSA image template
+
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo br0 eth2
+iface lo inet loopback
+
+# The primary network interface
+
+iface eth0 inet manual
+iface eth1 inet manual
+#iface eth2 inet dhcp
+iface eth2 inet manual
+
+iface br0 inet manual
+	pre-up ip link set eth0 down
+	pre-up ip link set eth1 down
+	pre-up brctl addbr br0
+	pre-up brctl addif br0 eth0 eth1
+	pre-up ip addr flush dev eth0
+	pre-up ip addr flush dev eth1
+	pre-up ip link set eth0 up
+	pre-up ip link set eth1 up
+	pre-up ip link set br0 up
+	post-down ip link set eth0 down
+	post-down ip link set eth1 down
+	post down ip link set br0 down
+	post-down brctl delif br0 eth0 eth1
+	post-down brctl delbr br0

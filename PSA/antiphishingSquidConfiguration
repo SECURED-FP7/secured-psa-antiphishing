@@ -1,0 +1,20 @@
+### SQUID CONFIGURATION FILE ###
+
+# ACLs for  HTTP/1.1 common methods
+# Ensures Squid to listen for HTTP client requests through port 3128
+http_port 3128 tproxy
+https_port 3129 tproxy ssl-bump generate-host-certificates=on cert=/etc/squid3/certs/securedCA.pem dynamic_cert_mem_cache_size=4MB
+always_direct allow all
+ssl_bump server-first all
+sslproxy_flags DONT_VERIFY_PEER
+sslcrtd_program /usr/lib/squid3/ssl_crtd -s /var/lib/ssl_db -M 4MB sslcrtd_children=8 startup=1 idle=1
+
+# RULE phishing urls
+acl phishingSites url_regex -i "/home/psa/pythonScript/phishinglist"
+ http_access deny phishingSites
+
+# Final rules to keep a safe Squid configuration
+http_access allow all
+http_reply_access allow all
+
+

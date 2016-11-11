@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Place this in /etc/network/if-up.d/
+
+[ "$IFACE" = 'eth2' ] || exit 0
+
+ifconfig eth2 mtu 1496
+dhclient -1 eth2
+cd /home/psa/pythonScript
+ip=$(ifconfig eth2 | grep "inet addr" | awk '{print $2}' | cut -d: -f2)
+gunicorn -b $ip:8080 --log-file /home/psa/GUNICORN.log --log-level debug psaEE:app &
